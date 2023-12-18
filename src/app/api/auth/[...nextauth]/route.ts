@@ -1,7 +1,19 @@
 import { encrypt } from "@/utils/encryption";
 import axios from "axios";
-import NextAuth from "next-auth";
 import KeycloakProvider from "next-auth/providers/keycloak";
+import NextAuth, { DefaultSession } from "next-auth";
+
+declare module "next-auth" {
+  /**
+   * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: {
+      /** Oauth access token */
+      token?: object;
+    } & DefaultSession["user"];
+  }
+}
 
 async function refreshAccessToken(token) {
   const resp = await fetch(`${process.env.REFRESH_TOKEN_URL}`, {
@@ -11,7 +23,7 @@ async function refreshAccessToken(token) {
       client_secret: process.env.KEYCLOAK_CLIENT_SECRET,
       grant_type: "refresh_token",
       refresh_token: token.refresh_token,
-    }),
+    } as any),
     method: "POST",
   });
   const refreshToken = await resp.json();
@@ -37,12 +49,9 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, account }) {
-      const currentTimeStamp = Math.floor(Date.now() / 1000);
-
+      // const currentTimeStamp = Math.floor(Date.now() / 1000);
       if (account) {
         token = { ...account };
-        return token;
-      } else if (currentTimeStamp < token.expires_at) {
         return token;
       }
     },
@@ -51,7 +60,6 @@ const handler = NextAuth({
         session.access_token = encrypt(token.access_token);
         session.id_token = encrypt(token.id_token);
       }
-
       return session;
     },
   },
@@ -66,9 +74,8 @@ const handler = NextAuth({
       await axios.get(url.href);
     },
   },
-  session: {
-    strategy: "jwt",
-  },
 });
 
 export { handler as GET, handler as POST };
+
+export { handler as authOptions };

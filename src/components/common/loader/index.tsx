@@ -1,17 +1,23 @@
-import "@/styles/Loader.module.scss";
+import { Box } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
-type LoaderProps = {
-  loading: boolean;
-};
-
-const Loader = ({ loading }: LoaderProps) => (
-  <>
-    <div
-      className="opaque-loader-wrapper"
-      style={{ display: loading ? "flex" : "none" }}
-    >
-      <h1>Loading</h1>
-    </div>
-  </>
+const LoadingScreen = () => (
+  <Box
+    sx={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "#0f072c",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 9999, // Place above other UI elements
+    }}
+  >
+    <CircularProgress size={72} sx={{ color: "#FF5364" }} />
+  </Box>
 );
-export default Loader;
+
+export default LoadingScreen;

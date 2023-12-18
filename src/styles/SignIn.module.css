@@ -1,0 +1,9 @@
+.pageBackground {
+    background-image: linear-gradient(to bottom, #ffec85, #f2b134);
+    background-size: cover;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+  }

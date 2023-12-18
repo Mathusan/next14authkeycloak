@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function POST(req) {
+export async function POST(req: Request) {
   const url = `${process.env.BACKEND_URL}/auth/register`;
 
   const postBody = await req.json();
