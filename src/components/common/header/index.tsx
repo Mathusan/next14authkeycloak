@@ -41,7 +41,7 @@ const Header = () => {
               }}
             >
               <Button
-                href={"/"}
+                href={"/dashboard"}
                 style={{
                   textDecoration: "none",
                   color: "white",

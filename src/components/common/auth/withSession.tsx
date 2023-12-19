@@ -2,7 +2,7 @@
 
 import Header from "@/components/common/header";
 import LoadingScreen from "@/components/common/loader";
-import SignInComponent from "@/components/sign-in/SignInComponent";
+import UnAuthenticatedLandingView from "@/components/sign-in/SignInComponent";
 import { useSession } from "next-auth/react";
 
 const SessionComponent = ({ children }: { children: React.ReactNode }) => {
@@ -19,7 +19,7 @@ const SessionComponent = ({ children }: { children: React.ReactNode }) => {
           {children}
         </>
       ) : (
-        <SignInComponent />
+        <UnAuthenticatedLandingView />
       )}
     </>
   );

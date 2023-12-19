@@ -3,9 +3,8 @@ import React from "react";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import logo from "@/utils/surge-global-logo-in-white.svg";
-import styles from "@/styles/SignIn.module.css";
 
-const SignInComponent = () => {
+const UnAuthenticatedLandingView = () => {
   return (
     <Box
       sx={{
@@ -46,7 +45,7 @@ const SignInComponent = () => {
               backgroundColor: "#FF5364",
             },
           }}
-          onClick={() => signIn("keycloak", { callbackUrl: "/" })}
+          onClick={() => signIn("keycloak", { callbackUrl: "/dashboard" })}
         >
           Login
         </Button>
@@ -71,4 +70,4 @@ const SignInComponent = () => {
   );
 };
 
-export default SignInComponent;
+export default UnAuthenticatedLandingView;
